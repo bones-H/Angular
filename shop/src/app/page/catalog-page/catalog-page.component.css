@@ -1,0 +1,31 @@
+.products{
+  column-gap: 30px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 200px);
+  grid-template-rows: 1fr;
+  padding: 20px 30px;
+  justify-content: space-between;
+}
+a{
+  color: #2f2a2d;
+}
+a:hover{
+  color: darkorange;
+}
+p {
+  margin: 0 0 5px 0;
+}
+.product-item{
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  border-radius: 5px;
+  overflow: hidden;
+  margin: 20px 0;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 30px;
+}

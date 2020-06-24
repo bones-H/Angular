@@ -1,0 +1,42 @@
+.backdrop {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.3);
+}
+.modal{
+  margin-top: 3rem;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 20vh);
+  background-color: #fafafa;
+
+}
+.product {
+  display: flex;
+  justify-content: space-around;
+  border: 1px solid #c0c0c040;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.62);
+}
+
+.product_desc {
+  width: 30%;
+  font-size: 1.2em;
+  line-height: 1.5em;
+}
+p {
+  line-height: 1.2em;
+}
+img {
+  border-radius: 5px;
+}
+.product_bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
