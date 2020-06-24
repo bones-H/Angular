@@ -22,10 +22,10 @@ export class ProductPageComponent implements OnInit {
   ngOnInit(): void {
 
     this.route.params
+      .pipe(delay(500))
       .subscribe((params: Params) => {
-      console.log(params.id)
+
       this.product = this.catalogService.getById(+params.id)
-        console.log(params.id)
 
     // this.route.data.subscribe(data => {
     //   this.product = data.item
