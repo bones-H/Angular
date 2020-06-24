@@ -1,5 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {CartItem, Item} from '../app.component';
+
+import {GetCartService} from '../services/get-cart.service';
+
 
 
 
@@ -9,21 +11,13 @@ import {CartItem, Item} from '../app.component';
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.css']
 })
-export class CartComponent implements OnInit {
+export class CartComponent {
   img = 'https://placehold.it/70x100'
-  @Input() cart: CartItem
-  @Output() removeItem = new EventEmitter<Item>()
+
   showCart = false
 
-  constructor() {
 
-  }
 
-  ngOnInit(): void {
+  constructor(public cartService: GetCartService) {}
 
-  }
-
-  remove(cartItem) {
-    this.removeItem.emit(cartItem)
-  }
 }

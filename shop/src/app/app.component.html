@@ -1,30 +1,17 @@
-
 <header class="header">
   <div class="container nav">
     <div class="logo">E-shop</div>
-    <div class="nav_link">
-      <div class="links" >Главная</div>
-      <div class="links" >Каталог</div>
-      <div class="links" >Корзина</div>
-    </div>
+    <div class="links"  routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a href="#" [routerLink]="'/'">Главная</a></div>
+    <div class="links" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"><a href="#"  [routerLink]="'/catalog'">Каталог</a></div>
     <div class="cart">
-      <app-search
-        (search)="filter($event)"
-      ></app-search>
-      <app-cart
-        [cart]="cart"
-        (removeItem)="deleteFromBasket($event)"
-      ></app-cart>
+      <app-search></app-search>
+      <app-cart></app-cart>
     </div>
   </div>
 </header>
-<div>
-  <main  class="container">
-    <app-catalog
-      [catalog]="filtered"
-      (addProduct)="addToCart($event)"
-    ></app-catalog>
+<main  class="container">
 
-  </main>
-</div>
+  <router-outlet></router-outlet>
+</main>
+
 

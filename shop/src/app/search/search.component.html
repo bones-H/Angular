@@ -1,7 +1,7 @@
 <div class="search-form"   >
-  <input type="text" class="search-field" [(ngModel)]="strSearch" (keydown.enter)="userSearch()">
+  <input type="text" class="search-field" placeholder="Поиск" [(ngModel)]="strSearch" (keydown.enter)="this.catalog.filter(this.strSearch)">
 
-  <button class="btn-search"  (click)="userSearch()">
+  <button class="btn-search"  (click)="this.catalog.filter(this.strSearch)">
     <i class="fas fa-search"></i>
   </button>
 </div>

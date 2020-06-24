@@ -2,26 +2,38 @@
   background-color: #2f2a2d;
   color: #fafafa;
 }
+.logo{
+  text-transform: uppercase;
+  font-weight: bold;
+}
 .nav{
   display: flex;
   justify-content: space-between;
   padding: 30px 80px;
 }
-.nav_link{
-  justify-content: space-between;
+.links{
+  padding: 0 10px;
+}
+.cart{
   position: relative;
+  width: 320px;
   display: flex;
-  align-self: center;
-  min-width: 300px;
+  justify-content: space-between;
+  align-items: center;
+}
+.active {
+  border-bottom: 2px solid #fafafa;
+}
+a{
+  color: #ffffff;
+}
+a:hover{
+  color: darkorange;
 }
 button:focus{
   outline: none;
 }
-.logo{
 
-  text-transform: uppercase;
-  font-weight: bold;
-}
 .btn-cart{
   background-color: #fafafa;
   padding: 10px 20px;

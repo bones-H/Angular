@@ -1,4 +1,5 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component} from '@angular/core';
+import {GetCatalogService} from '../services/get-catalog.service';
 
 @Component({
   selector: 'app-search',
@@ -8,14 +9,10 @@ import {Component, EventEmitter, Output} from '@angular/core';
 export class SearchComponent {
   strSearch = ''
 
-  @Output() search = new EventEmitter()
 
 
-  constructor() { }
+  constructor(public catalog: GetCatalogService) { }
 
-  userSearch() {
-    console.log(this.strSearch)
-    this.search.emit(this.strSearch)
-  }
+
 
 }

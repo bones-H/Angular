@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Item} from '../app.component';
+import {Item} from '../interfaces';
+
 
 
 

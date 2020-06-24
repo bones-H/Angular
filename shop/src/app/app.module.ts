@@ -9,7 +9,11 @@ import { CatalogComponent } from './catalog/catalog.component';
 import { SearchComponent } from './search/search.component';
 
 import {AppRoutingModule} from './app-routing.module';
-import { HomePageComponent } from './home-page/home-page.component';
+import { HomePageComponent } from './page/home-page/home-page.component';
+
+import { CatalogPageComponent } from './page/catalog-page/catalog-page.component';
+import { ProductPageComponent } from './page/product-page/product-page.component';
+import { ModalComponent } from './modal/modal.component';
 
 
 
@@ -21,6 +25,9 @@ import { HomePageComponent } from './home-page/home-page.component';
     CatalogComponent,
     SearchComponent,
     HomePageComponent,
+    CatalogPageComponent,
+    ProductPageComponent,
+    ModalComponent,
 
 
   ],

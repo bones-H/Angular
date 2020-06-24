@@ -75,6 +75,16 @@ pre {
 a {
   background-color: transparent;
 }
+a{
+  text-decoration: none;
+  display: inline-block;
+  font-size: 1.17em;
+  margin: 10px 0;
+  font-weight: bold;
+
+  transition: color ease-in-out .4s;
+}
+
 
 /**
  * 1. Remove the bottom border in Chrome 57-
@@ -363,13 +373,7 @@ img {
   border: 1px solid #c0c0c040;
   padding: 15px
 }
-.cart{
-  position: relative;
-  display: flex;
-}
-
 .buy-btn, .del-btn {
-  margin-top: 5px;
   background-color: #2f2a2d;
   padding: 5px 15px;
   border: 1px solid transparent;
