@@ -3,6 +3,7 @@ import {ActivatedRoute, Params} from '@angular/router';
 import {GetCatalogService} from '../../services/get-catalog.service';
 import {Item} from '../../interfaces';
 import {GetCartService} from '../../services/get-cart.service';
+import {delay} from 'rxjs/operators';
 
 @Component({
   selector: 'app-product-page',
@@ -19,11 +20,18 @@ export class ProductPageComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.route.params.subscribe((params: Params) => {
+
+    this.route.params
+      .subscribe((params: Params) => {
       console.log(params.id)
       this.product = this.catalogService.getById(+params.id)
-      console.log(this.product)
+
+    // this.route.data.subscribe(data => {
+    //   this.product = data.item
+    //   console.log(this.product)
     })
+
+
   }
 
 }

@@ -4,11 +4,18 @@ import {HomePageComponent} from './page/home-page/home-page.component';
 
 import {CatalogPageComponent} from './page/catalog-page/catalog-page.component';
 import {ProductPageComponent} from './page/product-page/product-page.component';
+import {CatalogResolver} from './services/catalog.resolver';
 
 const routes: Routes = [
   {path: '', component: HomePageComponent},
   {path: 'catalog', component: CatalogPageComponent},
-  {path: 'catalog/:id', component: ProductPageComponent}
+  {
+    path: 'catalog/:id',
+    component: ProductPageComponent
+  // resolve: {
+  //     item: CatalogResolver
+  // }
+  }
 
 
 

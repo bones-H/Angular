@@ -12,8 +12,7 @@ export class GetCatalogService {
   catalog: Item[];
 
   filtered: Item[]
-  constructor(private http: HttpClient,
-              ) { }
+  constructor(private http: HttpClient) { }
 
   getCatalog(url) {
     this.http.get<Item[]>(url)
@@ -27,6 +26,9 @@ export class GetCatalogService {
     this.filtered = this.catalog.filter(el => regexp.test(el.product_name));
   }
   getById(id: number) {
+    console.log('1')
+    //while (!this.filtered.length){console.log('wait')}
+    console.log('2')
     return this.filtered.find(el => el.id_product === id)
   }
 }
