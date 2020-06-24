@@ -25,6 +25,7 @@ export class ProductPageComponent implements OnInit {
       .subscribe((params: Params) => {
       console.log(params.id)
       this.product = this.catalogService.getById(+params.id)
+        console.log(params.id)
 
     // this.route.data.subscribe(data => {
     //   this.product = data.item
