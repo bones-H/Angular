@@ -4,11 +4,23 @@ import {GetCatalogService} from '../../services/get-catalog.service';
 import {Item} from '../../interfaces';
 import {GetCartService} from '../../services/get-cart.service';
 import {delay} from 'rxjs/operators';
+import {transition, trigger, useAnimation} from '@angular/animations';
+import {fadeIn, flipInX} from 'ng-animate';
 
 @Component({
   selector: 'app-product-page',
   templateUrl: './product-page.component.html',
-  styleUrls: ['./product-page.component.css']
+  styleUrls: ['./product-page.component.css'],
+  animations: [
+    trigger('flip', [
+      transition('* => *', useAnimation(flipInX, {
+        params: {
+          timing: 1,
+        }
+      }))
+    ])
+  ]
+
 })
 export class ProductPageComponent implements OnInit {
   img = 'https://placehold.it/350x500'
@@ -22,9 +34,10 @@ export class ProductPageComponent implements OnInit {
   ngOnInit(): void {
 
     this.route.params
+      .pipe(delay(600))
       .subscribe((params: Params) => {
-      console.log(params.id)
-      this.product = this.catalogService.getById(+params.id)
+        this.product = this.catalogService.getById(+params.id)
+        console.log(this.product)
 
     // this.route.data.subscribe(data => {
     //   this.product = data.item

@@ -9,26 +9,26 @@ import {GetCartService} from './get-cart.service';
   providedIn: 'root'
 })
 export class GetCatalogService {
-  catalog: Item[];
+  catalog: Item[] = []
+  filtered: Item[] = []
 
-  filtered: Item[]
   constructor(private http: HttpClient) { }
 
   getCatalog(url) {
     this.http.get<Item[]>(url)
       .subscribe(data => {
-        this.catalog = data
-        this.filtered = data
-      });
+        this.catalog.push(...data)
+        this.filtered.push(...data)
+        // this.filtered = data
+        // this.catalog = data
+      })
   }
   filter(search){
     let regexp = new RegExp(search, 'i');
     this.filtered = this.catalog.filter(el => regexp.test(el.product_name));
   }
   getById(id: number) {
-    console.log('1')
-    //while (!this.filtered.length){console.log('wait')}
-    console.log('2')
+
     return this.filtered.find(el => el.id_product === id)
   }
 }

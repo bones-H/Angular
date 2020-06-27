@@ -1,9 +1,9 @@
 
   <div>
     <button class="btn-cart" type="button" (click)="showCart = !showCart">Корзина</button>
-    <div class="cart-block" *ngIf="showCart">
-      <p *ngIf="!this.cartService.cart.contents.length">Корзина пуста</p>
-      <div class="cart-item" *ngFor="let cartItem of this.cartService.cart.contents">
+    <div class="cart-block" [hidden]="showCart" *ngIf="cartService.contents != undefined">
+      <p *ngIf="!cartService.contents.length" [@fade]>Корзина пуста</p>
+      <div class="cart-item" *ngFor="let cartItem of cartService.contents" [@show]>
         <div class="product-bio">
           <img [src]="img" [alt]="cartItem.product_name">
           <div class="product-desc">
@@ -14,12 +14,14 @@
         </div>
         <div class="right-block">
           <p class="product-price">{{cartItem.quantity*cartItem.price}}$</p>
-          <button class="del-btn" (click)="this.cartService.deleteFromBasket(cartItem)">&times;</button>
+          <button class="del-btn" (click)="cartService.deleteFromBasket(cartItem)">&times;</button>
         </div>
+
       </div>
       <div class="cart-bottom">
-        <p class="product-amount" *ngIf="this.cartService.cart.contents.length">Итого: {{this.cartService.cart.amount}}$</p>
+        <p class="product-amount" *ngIf="cartService.cart.contents.length">Итого: {{this.cartService.cart.amount}}$</p>
       </div>
+
 
     </div>
   </div>

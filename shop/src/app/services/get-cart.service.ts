@@ -7,25 +7,31 @@ import {CartItem, Item} from '../interfaces';
 })
 export class GetCartService {
   cart: CartItem
+  contents: Item[];
   constructor(private http: HttpClient) { }
 
   getCatalog(url: string){
     this.http.get<CartItem>(url)
       .subscribe(data => {
         this.cart = data
+        this.contents = data.contents
       });
   }
+  // Из за невозможности вносить изменения в JSON пришлось обойтись без REST API и хранить корзину локально
   deleteFromBasket(cartItem) {
     if(cartItem.quantity > 1){
       cartItem.quantity--
       this.cart.amount = this.cart.amount - cartItem.price
       this.cart.countGoods--
+      //тут должен был быть PUT запрос
     } else {
       this.cart.contents.splice(this.cart.contents.indexOf(cartItem), 1)
       this.cart.amount = this.cart.amount - cartItem.price
       this.cart.countGoods--
+      //тут должен был быть DELETE запрос
     }
   }
+  //далее должны идти запросы PUT и POST соответственно
   addToCart(product: Item) {
     let find = this.cart.contents.find(el => el.id_product === product.id_product);
     if(find){

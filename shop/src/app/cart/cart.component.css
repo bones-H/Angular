@@ -26,6 +26,7 @@
   padding: 20px;
   color: black;
   width: 300px;
+  z-index: 10;
 }
 .cart-block:before{
   content: '';

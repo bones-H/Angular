@@ -1,12 +1,12 @@
-<div class="product">
+<div class="product" [@flip] *ngIf="product != undefined">
   <img [src]="img" [alt]="product.product_name">
   <div class="product_desc">
     <h3>{{product.product_name}}</h3>
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium assumenda cupiditate, dicta eligendi fugit inventore modi nihil non nostrum nulla possimus quas qui quibusdam quisquam repellendus sit, veniam voluptate? A at dolores est eveniet labore nisi sapiente sed tempora! Assumenda beatae culpa cum cumque impedit inventore optio quam repellat vitae.</p>
-    <p><strong>Характеристики:</strong></p>
+    <p >Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium assumenda cupiditate, dicta eligendi fugit inventore modi nihil non nostrum nulla possimus quas qui quibusdam quisquam repellendus sit, veniam voluptate? A at dolores est eveniet labore nisi sapiente sed tempora! Assumenda beatae culpa cum cumque impedit inventore optio quam repellat vitae.</p>
+    <p ><strong>Характеристики:</strong></p>
     <ul>
-      <li>Lorem ipsum dolor sit.</li>
-      <li>Lorem ipsum.</li>
+      <li >Lorem ipsum dolor sit.</li>
+      <li >Lorem ipsum.</li>
       <li>Lorem ipsum dolor sit amet.</li>
       <li>Lorem ipsum dolor sit amet, consectetur..</li>
     </ul>

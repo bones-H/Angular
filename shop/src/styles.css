@@ -72,17 +72,16 @@ pre {
  * Remove the gray background on active links in IE 10.
  */
 
-a {
-  background-color: transparent;
-}
+/*a {*/
+/*  background-color: transparent;*/
+/*}*/
 a{
   text-decoration: none;
   display: inline-block;
   font-size: 1.17em;
   margin: 10px 0;
   font-weight: bold;
-
-  transition: color ease-in-out .4s;
+  transition: all ease-in-out .4s;
 }
 
 

@@ -1,7 +1,9 @@
 <app-modal *ngIf="showModal"></app-modal>
-<div class="products">
-  <div class="product-item" *ngFor="let product of this.catalog.filtered">
-    <img [src]="img" [alt]="product.product_name">
+<div class="products" >
+  <div class="product-item" *ngFor="let product of this.catalogService.filtered" [@fadeIn]>
+    <div >
+      <img [src]="img" [alt]="product.product_name" >
+    </div>
     <div class="desc">
       <a [routerLink]="['/catalog', product.id_product]">{{product.product_name}}</a>
 
@@ -10,6 +12,4 @@
     </div>
   </div>
 </div>
-<div class="pagination">
-  <button class="buy-btn">Показать еще</button>
-</div>
+

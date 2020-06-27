@@ -1,8 +1,6 @@
 <div class="welcome">
-  <h2 class="welcome_title">Добро пожаловать в E-SHOP</h2>
-  <!--<p class="welcome_text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate esse id laborum molestiae porro quasi quis rem unde vel voluptatibus!</p>-->
+  <h2  class="welcome_title" [@fade]>Добро пожаловать в E-SHOP</h2>
+  <p class="welcome_text" *ngIf="show" [@fade]>Лучший магазин электроники</p>
+  <div class="btn" [routerLink]="'/catalog'" *ngIf="show" [@fade] [@Shake]>Перейти к покупкам!</div>
 </div>
-<!--<div class="primary">-->
-<!--  <div class="primary_block">Catalog</div>-->
-<!--  <div class="primary_block">Cart</div>-->
-<!--</div>-->
+

@@ -29,10 +29,11 @@ a{
 }
 a:hover{
   color: darkorange;
+  transform: scale(1.05);
 }
-button:focus{
-  outline: none;
-}
+/*button:focus{*/
+/*  outline: none;*/
+/*}*/
 
 .btn-cart{
   background-color: #fafafa;

@@ -14,6 +14,7 @@ import { HomePageComponent } from './page/home-page/home-page.component';
 import { CatalogPageComponent } from './page/catalog-page/catalog-page.component';
 import { ProductPageComponent } from './page/product-page/product-page.component';
 import { ModalComponent } from './modal/modal.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 
 
@@ -34,7 +35,8 @@ import { ModalComponent } from './modal/modal.component';
     BrowserModule,
     HttpClientModule,
     FormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule
 
   ],
   providers: [],
