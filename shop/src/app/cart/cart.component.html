@@ -1,9 +1,9 @@
 
   <div>
     <button class="btn-cart" type="button" (click)="showCart = !showCart">Корзина</button>
-    <div class="cart-block" [hidden]="showCart" *ngIf="cartService.contents != undefined">
-      <p *ngIf="!cartService.contents.length" [@fade]>Корзина пуста</p>
-      <div class="cart-item" *ngFor="let cartItem of cartService.contents" [@show]>
+    <div class="cart-block" [hidden]="showCart" *ngIf="cartService.cart != undefined">
+
+      <div class="cart-item" *ngFor="let cartItem of cartService.cart.contents" [@show]>
         <div class="product-bio">
           <img [src]="img" [alt]="cartItem.product_name">
           <div class="product-desc">
@@ -19,7 +19,11 @@
 
       </div>
       <div class="cart-bottom">
-        <p class="product-amount" *ngIf="cartService.cart.contents.length">Итого: {{this.cartService.cart.amount}}$</p>
+        <p *ngIf="!cartService.cart.contents.length; else cartAmount" [@fade]>Корзина пуста</p>
+        <ng-template #cartAmount>
+          <p class="product-amount" *ngIf="cartService.cart.contents.length" [@fade]>Итого: {{this.cartService.cart.amount}}$</p>
+        </ng-template>
+
       </div>
 
 

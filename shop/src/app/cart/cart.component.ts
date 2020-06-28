@@ -3,7 +3,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {GetCartService} from '../services/get-cart.service';
 import {transition, trigger, useAnimation} from '@angular/animations';
 import {fadeIn, fadeInLeft, fadeOutLeft, fadeOutRight, lightSpeedIn, lightSpeedOut} from 'ng-animate';
-import {CartItem, Item} from '../interfaces';
+
 
 
 
@@ -35,7 +35,7 @@ import {CartItem, Item} from '../interfaces';
 })
 export class CartComponent implements OnInit {
   img = 'https://placehold.it/70x100'
-  // urlCart = 'https://my-json-server.typicode.com/bones-H/myJson/cart'
+
   showCart = true
 
 
@@ -45,7 +45,7 @@ export class CartComponent implements OnInit {
 
   ngOnInit(): void {
 
-    // this.cartService.getCatalog(this.urlCart)
+
   }
 
 }

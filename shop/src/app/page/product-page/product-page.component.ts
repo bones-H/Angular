@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Params} from '@angular/router';
 import {GetCatalogService} from '../../services/get-catalog.service';
-import {Item} from '../../interfaces';
+import {Product} from '../../interfaces';
 import {GetCartService} from '../../services/get-cart.service';
 import {delay} from 'rxjs/operators';
 import {transition, trigger, useAnimation} from '@angular/animations';
@@ -12,10 +12,10 @@ import {fadeIn, flipInX} from 'ng-animate';
   templateUrl: './product-page.component.html',
   styleUrls: ['./product-page.component.css'],
   animations: [
-    trigger('flip', [
-      transition('* => *', useAnimation(flipInX, {
+    trigger('fade', [
+      transition('* => *', useAnimation(fadeIn, {
         params: {
-          timing: 1,
+          timing: .4,
         }
       }))
     ])
@@ -24,7 +24,7 @@ import {fadeIn, flipInX} from 'ng-animate';
 })
 export class ProductPageComponent implements OnInit {
   img = 'https://placehold.it/350x500'
-  product: Item
+  product: Product
   constructor(
     private route: ActivatedRoute,
     private catalogService: GetCatalogService,

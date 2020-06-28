@@ -1,20 +1,20 @@
-.header{
+.header {
   background-color: #2f2a2d;
   color: #fafafa;
 }
-.logo{
+.logo {
   text-transform: uppercase;
   font-weight: bold;
 }
-.nav{
+.nav {
   display: flex;
   justify-content: space-between;
   padding: 30px 80px;
 }
-.links{
+.links {
   padding: 0 10px;
 }
-.cart{
+.cart {
   position: relative;
   width: 320px;
   display: flex;
@@ -24,10 +24,10 @@
 .active {
   border-bottom: 2px solid #fafafa;
 }
-a{
+a {
   color: #ffffff;
 }
-a:hover{
+a:hover {
   color: darkorange;
   transform: scale(1.05);
 }
@@ -35,7 +35,7 @@ a:hover{
 /*  outline: none;*/
 /*}*/
 
-.btn-cart{
+.btn-cart {
   background-color: #fafafa;
   padding: 10px 20px;
   border: 1px solid transparent;
@@ -44,15 +44,15 @@ a:hover{
   transition: all ease-in-out .4s;
   cursor: pointer;
 }
-.btn-cart:hover{
+.btn-cart:hover {
   background-color: transparent;
   border-color: #fafafa;
   color: #fafafa;
 }
-.btn-cart, .logo{
+.btn-cart, .logo {
   align-self: center;
 }
-.container{
+.container {
   margin: 0 auto;
   max-width: 1600px;
 }

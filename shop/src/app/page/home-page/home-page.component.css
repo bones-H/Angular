@@ -1,4 +1,4 @@
-.welcome{
+.welcome {
   margin-top: 120px;
   font-size: 2rem;
   text-align: center;
@@ -7,13 +7,11 @@
 .btn {
   display: inline-block;
   padding: 5px 10px;
-
   transition: all ease-in-out .4s;
+  cursor: pointer;
 }
 .btn:hover {
   color: darkorange;
-  transform: scale(1.2);
-  cursor: pointer;
-
+  transform: scale(1.1);
 }
 

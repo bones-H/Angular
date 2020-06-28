@@ -1,11 +1,11 @@
-export interface Item {
+export interface Product {
   id_product: number
   product_name: string
   price: number
   quantity?: number
 }
-export interface CartItem {
+export interface Cart {
   amount: number
-  contents: Item[]
+  contents: Product[]
   countGoods: number
 }

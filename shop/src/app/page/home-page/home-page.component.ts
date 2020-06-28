@@ -12,9 +12,6 @@ import {fadeIn, flipInX, tada} from 'ng-animate';
     ]),
     trigger('Shake', [
       transition('* => *', [
-        animate(1000, style({
-          transform: 'scale(0.8)',
-        })),
         group([
           useAnimation(tada),
           animate(800, style({

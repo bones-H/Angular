@@ -3,7 +3,7 @@ import {GetCatalogService} from '../../services/get-catalog.service';
 import {GetCartService} from '../../services/get-cart.service';
 import {transition, trigger, useAnimation} from '@angular/animations';
 import {bounce, fadeIn, flipInX} from 'ng-animate';
-import {delay} from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-catalog-page',
@@ -16,7 +16,6 @@ import {delay} from 'rxjs/operators';
   ]
 })
 export class CatalogPageComponent implements OnInit {
-  fadeIn: any
 
   img = 'https://placehold.it/200x150'
   showModal = false

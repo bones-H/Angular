@@ -1,11 +1,9 @@
 .product {
   display: flex;
   justify-content: space-around;
-  margin: 80px 20px;
+  margin: 60px 20px;
 
   border-radius: 10px;
-
-  padding: 50px 0;
 }
 
 .product_desc {
