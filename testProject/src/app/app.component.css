@@ -1,0 +1,17 @@
+#mapid { height: 180px; }
+
+.container {
+  display: flex;
+  justify-content: space-around;
+  margin: 0 auto;
+  width: 900px;
+
+}
+.block{
+  display: inline-block;
+  padding: 20px 30px;
+  border: 2px solid black;
+}
+.active {
+  background-color: #59ef59;
+}
