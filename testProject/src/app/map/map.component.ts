@@ -43,12 +43,12 @@ export class MapComponent implements AfterViewInit, OnChanges{
     if(changes.activatedId){
       this.focusMarker(changes.activatedId.currentValue)
       this.blurMarker(changes.activatedId.previousValue)
-      console.log(1)
+      
     } else if(changes.removeId){
       this.removeMarker(changes.removeId.currentValue)
-      console.log(2)
+
     } else {
-      console.log(3)
+
       this.map.on("click", e => {
         this.serviceHTTP.newMarker.coordinates = [e.latlng.lat, e.latlng.lng]
         this.addMarkers(this.serviceHTTP.newMarker)
