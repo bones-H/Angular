@@ -17,23 +17,22 @@
 </div>
 <div class="create-markers">
   <h3>Создать новый маркер</h3>
-    <div class="type">
-      <p>Выберите тип маркера</p>
-      <select name="marker-type" [(ngModel)]="markerType">
-        <option  value="Event">Event</option>
-        <option value="Place">Place</option>
-      </select>
-    </div>
-    <div class="title">
-      <p>Введите название маркера</p>
-      <input type="text" [(ngModel)]="markerTitle">
-    </div>
-    <div class="id">
-      <p>Введите id маркера</p>
-      <input type="number" [(ngModel)]="markerId">
-    </div>
+  <div class="type">
+    <p>Выберите тип маркера</p>
+    <select name="marker-type" [(ngModel)]="markerType">
+      <option  value="Event">Event</option>
+      <option value="Place">Place</option>
+    </select>
+  </div>
+  <div class="title">
+    <p>Введите название маркера</p>
+    <input type="text" [(ngModel)]="markerTitle">
+  </div>
 
-    <button [disabled]="!(markerType&&markerTitle&&markerId)" (click)="createMarker()">Создать</button>
+
+  <button [disabled]="!(markerType&&markerTitle)" (click)="createMarker()">Выбрать место для маркера на карте</button>
+
+
 
 </div>
 

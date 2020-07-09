@@ -10,7 +10,7 @@ export class MapControlComponent {
 
   markerType = ''
   markerTitle = ''
-  markerId = null
+
 
   constructor(public serviceHTTP: JsonService) { }
 
@@ -26,11 +26,11 @@ export class MapControlComponent {
   createMarker() {
     this.serviceHTTP.newMarker = {
       coordinates: [0, 0],
-      id: this.markerId,
+      id: this.serviceHTTP.lastId + 1,
       type: this.markerType,
       title: this.markerTitle,
       active: false
     }
-    this.markerTitle = this.markerType = this.markerId = null
+    this.markerTitle = this.markerType = null
   }
 }

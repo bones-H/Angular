@@ -9,6 +9,7 @@ export class JsonService {
   markerArr: Marker[] = []
   activatedId = 0
   removeId = 0
+  lastId = 0
   newMarker: Marker
   constructor(private http: HttpClient) {
   }

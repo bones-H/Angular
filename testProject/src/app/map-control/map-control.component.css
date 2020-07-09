@@ -28,6 +28,9 @@
 .btn:hover {
   transform: scale(1.2);
 }
+button {
+  margin-top: 20px;
+}
 img {
 
   height: 15px;

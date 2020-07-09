@@ -26,12 +26,7 @@ export class MapComponent implements AfterViewInit, OnChanges{
     iconSize: [50, 50]
   })
 
-  markerOptions = {
-    title: "MyLocation",
-    clickable: true,
-    draggable: true,
-    icon: this.iconDefault
-  }
+
 
   @Input() activatedId: number
   @Input() removeId: number
@@ -39,15 +34,15 @@ export class MapComponent implements AfterViewInit, OnChanges{
   constructor(private serviceHTTP: JsonService) { }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes)
+
     if(changes.activatedId){
       this.focusMarker(changes.activatedId.currentValue)
       this.blurMarker(changes.activatedId.previousValue)
-      
+
     } else if(changes.removeId){
       this.removeMarker(changes.removeId.currentValue)
 
-    } else {
+    } else if (changes.newMarker){
 
       this.map.on("click", e => {
         this.serviceHTTP.newMarker.coordinates = [e.latlng.lat, e.latlng.lng]
@@ -122,7 +117,8 @@ export class MapComponent implements AfterViewInit, OnChanges{
 
   addMarkers(el){
     this.serviceHTTP.markerArr.push(el)
-    let marker = this.updateMarkers(el)
+    this.serviceHTTP.lastId = el.id
+      let marker = this.updateMarkers(el)
 
     this.markers[marker.id] = L.marker(marker.coordinates, marker.options).addTo(this.map)
     this.markers[marker.id].on('click', e => {
