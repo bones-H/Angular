@@ -52,8 +52,8 @@ export class MapComponent implements AfterViewInit, OnChanges{
       this.map.on("click", e => {
         this.serviceHTTP.newMarker.coordinates = [e.latlng.lat, e.latlng.lng]
         this.addMarkers(this.serviceHTTP.newMarker)
+        this.map.off("click")
 
-        console.log(this.serviceHTTP.newMarker)
       })
 
     }
