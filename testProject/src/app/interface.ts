@@ -1,5 +1,7 @@
 export interface Marker {
-  coordinates: [],
-  type: '',
-  title: ''
+  coordinates: [number, number],
+  type: string,
+  title: string,
+  id: number,
+  active: boolean
 }

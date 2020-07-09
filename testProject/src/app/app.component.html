@@ -1,6 +1,8 @@
-<div class="container" tabindex="1" (focusin)="showBlock($event)" (focusout)="hiddenBlock($event)">
-  <div class="block" tabindex="1" > block1</div>
-  <div class="block" tabindex="1">block2</div>
-  <div class="block" tabindex="1">block3</div>
-</div>
-<app-map></app-map>
+<aside>
+<!--  <div class="logo">-->
+<!--    <img src="https://svgsilh.com/svg/158348-3f51b5.svg" alt="logo">-->
+<!--  </div>-->
+  <app-map-control ></app-map-control>
+</aside>
+
+<app-map [activatedId]="this.service.activatedId" [removeId]="this.service.removeId" [newMarker]="this.service.newMarker"></app-map>

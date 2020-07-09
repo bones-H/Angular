@@ -1,15 +1,18 @@
-import {AfterViewInit, Component, OnInit} from '@angular/core';
+import {AfterViewChecked, AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import * as L from 'leaflet';
 import {JsonService} from '../service/json.service';
+import {Marker} from '../interface';
 
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.css']
 })
-export class MapComponent implements AfterViewInit{
+export class MapComponent implements AfterViewInit, OnChanges{
   private map
-  url = ''
+
+  markers = {}
+
   iconLocation = L.icon({
     iconUrl: 'https://svgsilh.com/svg/1093167-ff5722.svg',
     iconSize: [50, 50]
@@ -18,107 +21,117 @@ export class MapComponent implements AfterViewInit{
     iconUrl: 'https://svgsilh.com/svg/1915456-ff5722.svg',
     iconSize: [50, 50]
   })
-  markerData = [{
-    coordinates: [59.9310584, 30.3609096 ],
-    options: {
-      title: "Location1",
-      draggable: true,
-      icon: this.iconLocation
-    }
-  },
-    {
-      coordinates: [59.94, 30.37 ],
-      options: {
-        title: "Location2",
-        clickable: true,
-        draggable: true,
-        icon: this.iconEvent
-      }
-    }]
+  iconDefault = L.icon({
+    iconUrl: 'https://svgsilh.com/svg/1566741.svg',
+    iconSize: [50, 50]
+  })
+
+  markerOptions = {
+    title: "MyLocation",
+    clickable: true,
+    draggable: true,
+    icon: this.iconDefault
+  }
+
+  @Input() activatedId: number
+  @Input() removeId: number
+  @Input() newMarker: Marker
   constructor(private serviceHTTP: JsonService) { }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(changes)
+    if(changes.activatedId){
+      this.focusMarker(changes.activatedId.currentValue)
+      this.blurMarker(changes.activatedId.previousValue)
+      console.log(1)
+    } else if(changes.removeId){
+      this.removeMarker(changes.removeId.currentValue)
+      console.log(2)
+    } else {
+      console.log(3)
+      this.map.on("click", e => {
+        this.serviceHTTP.newMarker.coordinates = [e.latlng.lat, e.latlng.lng]
+        this.addMarkers(this.serviceHTTP.newMarker)
+
+        console.log(this.serviceHTTP.newMarker)
+      })
+
+    }
+
+
+  }
 
   ngAfterViewInit(): void {
     this.initMap()
-    this.serviceHTTP.getMarkers()
-      .subscribe(data => this.serviceHTTP.markerArr.push(...data))
-    console.log(this.serviceHTTP.markerArr)
-    this.updateMarkers()
-    console.log(this.markerData)
-    this.markerData.forEach(el => L.marker(el.coordinates, el.options).addTo(this.map))
+    this.serviceHTTP.getMarkers().subscribe(data => {
+      data.forEach(el => {
+        const m = {...el, ...{active: false}}
+        this.addMarkers(m)
+      })
+    })
+
+
   }
 
-  private initMap(): void {
 
+  private initMap(): void {
     this.map = L.map('map', {
       center: [ 59.9310584, 30.3609096 ],
       zoom: 10
     });
-    let iconDef = L.icon({
-      iconUrl: 'https://svgsilh.com/svg/1093169-3f51b5.svg',
-      iconSize: [50, 50]
-    })
-    let iconAct = L.icon({
-      iconUrl: 'https://svgsilh.com/svg/1093169-ff5722.svg',
-      iconSize: [50, 50]
-    })
-
-
-
-
-    let markerOptions = {
-      title: "MyLocation",
-      clickable: true,
-      draggable: true,
-      icon: iconAct
-    }
-
-    // let marker = L.marker([59.9310584, 30.3609096 ], markerOptions)
-    // let marker1 = L.marker([59.9310584, 30.37 ], markerOptions)
-
-   // marker.on('click', () => marker.setIcon(iconAct))
-    //marker1.on('click', () => marker1.setIcon(iconAct))
-
-    // marker.addTo(this.map)
-    // marker1.addTo(this.map)
-    // marker.on('click', getIcon(iconAct))
-    // L.popup()
-    //   .setLatLng([59.9310584, 30.3609096 ])
-    //   .setContent("I am a standalone popup.")
-    //   .openOn(this.map);
     const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
       attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     });
-
     tiles.addTo(this.map);
   }
 
-
-  focusMarker($event: any) {
-
-    if ($event.target.classList.contains('leaflet-marker-icon')){
-      //$event.target.style.filter = 'invert(120%)'
-      $event.target.classList.add('marker-active')
-
+  focusMarker(id: number) {
+    if (id > 0) {
+      this.markers[id]._icon.classList.add('marker-active')
+      this.map.panTo(this.markers[id].getLatLng())
     }
   }
 
-  blurMarker($event: any) {
-    //$event.target.style.filter = 'invert(0%)'
-    $event.target.classList.remove('marker-active')
-    console.log('blur')
+  blurMarker(id) {
+    if (id > 0) {
+      this.serviceHTTP.deactivatedMarker(id)
+      this.markers[id]._icon.classList.remove('marker-active')
+    }
   }
 
-  updateMarkers() {
-    this.serviceHTTP.markerArr.forEach(el => {
-      console.log(el)
-      // const marker = Object.assign({options: {
-      //     title: el.title,
-      //     icon: this.iconLocation
-      //   }}, el)
-      const marker = Object.assign({options: 1}, el)
-      console.log(marker)
-      //this.markerData.push(...marker)
+  updateMarkers(el) {
+    let icon
+      switch (el.type) {
+        case "Place":
+          icon = this.iconLocation
+          break
+        case "Event":
+          icon = this.iconEvent
+          break
+        default:
+          icon = this.iconDefault
+      }
+      const marker = {...el, ...{options: {
+          title: el.title,
+          icon: icon
+        }}}
+      return marker
+
+  }
+
+  addMarkers(el){
+    this.serviceHTTP.markerArr.push(el)
+    let marker = this.updateMarkers(el)
+
+    this.markers[marker.id] = L.marker(marker.coordinates, marker.options).addTo(this.map)
+    this.markers[marker.id].on('click', e => {
+      this.serviceHTTP.activatedMarker(+marker.id)
+      this.focusMarker(+marker.id)
     })
+
+  }
+  removeMarker(id) {
+    this.markers[id].removeFrom(this.map)
   }
 }

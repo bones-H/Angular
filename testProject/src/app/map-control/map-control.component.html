@@ -1,0 +1,40 @@
+<div class="markers-panel">
+  <div class="filter">
+    Фильтр
+  </div>
+  <div class="markers-box" *ngFor="let marker of serviceHTTP.markerArr">
+    <div class="marker" tabindex="0"
+         [ngClass]="{marker_active: marker.active}"
+         [id]="marker.id"
+         (focusin)="focusMarker($event)"
+         (focusout)="blurMarker()"
+    >
+      {{marker.id}}. {{marker.type}} - {{marker.title}}</div>
+
+
+    <div class="btn" (click)="this.serviceHTTP.removeMarker(marker)"><img src="https://svgsilh.com/svg/1152114-ff5722.svg" alt="delete"></div>
+  </div>
+</div>
+<div class="create-markers">
+  <h3>Создать новый маркер</h3>
+    <div class="type">
+      <p>Выберите тип маркера</p>
+      <select name="marker-type" [(ngModel)]="markerType">
+        <option  value="Event">Event</option>
+        <option value="Place">Place</option>
+      </select>
+    </div>
+    <div class="title">
+      <p>Введите название маркера</p>
+      <input type="text" [(ngModel)]="markerTitle">
+    </div>
+    <div class="id">
+      <p>Введите id маркера</p>
+      <input type="number" [(ngModel)]="markerId">
+    </div>
+
+    <button [disabled]="!(markerType&&markerTitle&&markerId)" (click)="createMarker()">Создать</button>
+
+</div>
+
+

@@ -7,14 +7,20 @@ import { MapComponent } from './map/map.component';
 import {JsonService} from './service/json.service';
 import {HttpClientModule} from '@angular/common/http';
 
+import { MapControlComponent } from './map-control/map-control.component';
+import {FormsModule} from '@angular/forms';
+
 @NgModule({
   declarations: [
     AppComponent,
-    MapComponent
+    MapComponent,
+    MapControlComponent
   ],
   imports: [
     BrowserModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
+
 
 
   ],
