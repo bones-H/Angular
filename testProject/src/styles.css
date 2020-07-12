@@ -1,13 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~leaflet/dist/leaflet.css";
+div:focus {
+  outline: none;
+}
 
 .marker-active {
   filter: invert(120%);
 }
-.leaflet-div-icon {
-  background: none;
-  border: none;
-}
+
 body {
   margin: 0;
 }

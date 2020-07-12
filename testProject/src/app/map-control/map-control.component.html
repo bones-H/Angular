@@ -1,19 +1,67 @@
 <div class="markers-panel">
   <div class="filter">
-    Фильтр
+    <p>Выбрать тип маркеров:</p>
+    <div class="filter__box">
+      <div class="inputs"><input class="radio" type="radio" id="searchEvent" name="search" value="Event" [(ngModel)]="this.serviceHTTP.search"><label class="radio-label" for="searchEvent">Event</label></div>
+      <div class="inputs"><input class="radio" type="radio" id="searchPlace" name="search" value="Place" [(ngModel)]="this.serviceHTTP.search"><label class="radio-label" for="searchPlace">Place</label></div>
+      <div class="inputs"><input class="radio" type="radio" id="searchAll" name="search" value="" checked [(ngModel)]="this.serviceHTTP.search"><label class="radio-label" for="searchAll">All</label></div>
+    </div>
+    <button (click)="this.serviceHTTP.filter()">Показать</button>
+
   </div>
-  <div class="markers-box" *ngFor="let marker of serviceHTTP.markerArr">
-    <div class="marker" tabindex="0"
-         [ngClass]="{marker_active: marker.active}"
-         [id]="marker.id"
-         (focusin)="focusMarker($event)"
-         (focusout)="blurMarker()"
-    >
-      {{marker.id}}. {{marker.type}} - {{marker.title}}</div>
+
+  <div class="text-center">
+    <h3>Маркеры на карте</h3>
+
+    <!-- items being paged -->
+    <div class="marker" *ngFor="let marker of pagedItems">
+      <span  tabindex="0" class="marker-text"
+           [ngClass]="{marker_active: marker.active}"
+           [id]="marker.id"
+           (focusin)="focusMarker($event)"
+           (focusout)="blurMarker()"
+      >
+        {{marker.id}}. {{marker.type}} - {{marker.title}}
+      </span>
 
 
-    <div class="btn" (click)="this.serviceHTTP.removeMarker(marker)"><img src="https://svgsilh.com/svg/1152114-ff5722.svg" alt="delete"></div>
+      <div class="btn" (click)="this.serviceHTTP.removeMarker(marker)"><img src="https://svgsilh.com/svg/1152114-ff5722.svg" alt="delete"></div>
+    </div>
+
+    <!-- pager -->
+    <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+      <li [ngClass]="{disabled:pager.currentPage === 1}">
+        <a (click)="setPage(1)">First</a>
+      </li>
+      <li [ngClass]="{disabled:pager.currentPage === 1}">
+        <a (click)="setPage(pager.currentPage - 1)">Previous</a>
+      </li>
+      <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+        <a (click)="setPage(page)">{{page}}</a>
+      </li>
+      <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+        <a (click)="setPage(pager.currentPage + 1)">Next</a>
+      </li>
+      <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+        <a (click)="setPage(pager.totalPages)">Last</a>
+      </li>
+    </ul>
   </div>
+
+<!--  <h3>Маркеры на карте</h3>-->
+<!--  <div class="markers-box" *ngFor="let marker of serviceHTTP.filteredArr">-->
+<!--    <div class="marker" tabindex="0"-->
+<!--         [ngClass]="{marker_active: marker.active}"-->
+<!--         [id]="marker.id"-->
+<!--         (focusin)="focusMarker($event)"-->
+<!--         (focusout)="blurMarker()"-->
+<!--    >-->
+<!--      {{marker.id}}. {{marker.type}} - {{marker.title}}-->
+<!--    </div>-->
+
+
+<!--    <div class="btn" (click)="this.serviceHTTP.removeMarker(marker)"><img src="https://svgsilh.com/svg/1152114-ff5722.svg" alt="delete"></div>-->
+<!--  </div>-->
 </div>
 <div class="create-markers">
   <h3>Создать новый маркер</h3>

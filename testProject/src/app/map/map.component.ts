@@ -13,7 +13,7 @@ export class MapComponent implements AfterViewInit, OnChanges{
 
   markers = {}
 
-  iconLocation = L.icon({
+  iconPlace = L.icon({
     iconUrl: 'https://svgsilh.com/svg/1093167-ff5722.svg',
     iconSize: [50, 50]
   })
@@ -31,6 +31,7 @@ export class MapComponent implements AfterViewInit, OnChanges{
   @Input() activatedId: number
   @Input() removeId: number
   @Input() newMarker: Marker
+  @Input() filteredArr: Marker[]
   constructor(private serviceHTTP: JsonService) { }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -47,10 +48,15 @@ export class MapComponent implements AfterViewInit, OnChanges{
       this.map.on("click", e => {
         this.serviceHTTP.newMarker.coordinates = [e.latlng.lat, e.latlng.lng]
         this.addMarkers(this.serviceHTTP.newMarker)
+        this.serviceHTTP.markerArr.push(this.serviceHTTP.newMarker)
+        this.serviceHTTP.filter()
         this.map.off("click")
 
       })
 
+    }  else if (changes.filteredArr){
+      this.removeAllMarkers()
+      this.serviceHTTP.filteredArr.forEach(el => this.addMarkers(el))
     }
 
 
@@ -61,9 +67,14 @@ export class MapComponent implements AfterViewInit, OnChanges{
     this.serviceHTTP.getMarkers().subscribe(data => {
       data.forEach(el => {
         const m = {...el, ...{active: false}}
-        this.addMarkers(m)
+        //this.addMarkers(m)
+        this.serviceHTTP.markerArr.push(m)
+
       })
+      console.log(this.serviceHTTP.markerArr)
+      this.serviceHTTP.filter()
     })
+
 
 
   }
@@ -82,24 +93,24 @@ export class MapComponent implements AfterViewInit, OnChanges{
   }
 
   focusMarker(id: number) {
-    if (id > 0) {
+    if (id) {
       this.markers[id]._icon.classList.add('marker-active')
       this.map.panTo(this.markers[id].getLatLng())
     }
   }
 
-  blurMarker(id) {
-    if (id > 0) {
+  blurMarker(id: number) {
+    if (id) {
       this.serviceHTTP.deactivatedMarker(id)
-      this.markers[id]._icon.classList.remove('marker-active')
+      this.markers[id]?._icon.classList.remove('marker-active')
     }
   }
 
-  updateMarkers(el) {
+  updateMarkers(el: Marker) {
     let icon
       switch (el.type) {
         case "Place":
-          icon = this.iconLocation
+          icon = this.iconPlace
           break
         case "Event":
           icon = this.iconEvent
@@ -115,8 +126,8 @@ export class MapComponent implements AfterViewInit, OnChanges{
 
   }
 
-  addMarkers(el){
-    this.serviceHTTP.markerArr.push(el)
+  addMarkers(el: Marker){
+
     this.serviceHTTP.lastId = el.id
       let marker = this.updateMarkers(el)
 
@@ -127,7 +138,15 @@ export class MapComponent implements AfterViewInit, OnChanges{
     })
 
   }
-  removeMarker(id) {
+  removeMarker(id: number) {
     this.markers[id].removeFrom(this.map)
+    delete this.markers[id]
+  }
+  removeAllMarkers() {
+    for (let key in this.markers){
+      this.markers[key].removeFrom(this.map)
+      delete this.markers[key]
+    }
+
   }
 }

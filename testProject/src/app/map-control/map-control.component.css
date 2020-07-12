@@ -1,3 +1,13 @@
+.markers-panel {
+  width: 320px;
+}
+.filter__box {
+  display: flex;
+  justify-content: space-around;
+}
+.radio, .radio-label {
+  cursor: pointer;
+}
 .markers-box {
   display: flex;
   justify-content: space-between;
@@ -6,18 +16,26 @@
   width: 290px;
 }
 .marker {
+
   cursor: pointer;
   transition: color ease-in-out .4s;
   outline:none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
 }
 .marker:hover {
   color: #009bff;
-
 }
 .marker_active {
   border-bottom: 2px solid #009bff;
   color: #009bff;
   font-weight: bold;
+}
+.marker-text {
+  max-width: 250px;
+  padding: 4px 0;
 }
 .btn {
   cursor: pointer;
@@ -28,6 +46,23 @@
 .btn:hover {
   transform: scale(1.2);
 }
+.pagination {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  padding: 0;
+}
+li {
+  cursor: pointer;
+  padding: 4px 8px;
+  color: #3a3e42;
+  text-decoration: none;
+  transition: all ease-in-out .4s;
+
+}
+li:hover {
+  color: #009bff;
+}
 button {
   margin-top: 20px;
 }
@@ -35,3 +70,5 @@ img {
 
   height: 15px;
 }
+
+

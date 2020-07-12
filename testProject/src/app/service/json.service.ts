@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpClientModule} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {Marker} from '../interface';
 
 
@@ -7,10 +7,12 @@ import {Marker} from '../interface';
 
 export class JsonService {
   markerArr: Marker[] = []
-  activatedId = 0
-  removeId = 0
-  lastId = 0
+  filteredArr: Marker[] = []
+  activatedId = null
+  removeId = null
+  lastId = null
   newMarker: Marker
+  search = ''
   constructor(private http: HttpClient) {
   }
 
@@ -20,15 +22,27 @@ export class JsonService {
   }
 
   activatedMarker(id: number) {
-    this.markerArr.find(el => el.id === id).active = true
-    this.activatedId = id
+    let marker = this.markerArr.find(el => el.id === id)
+    if (marker) {
+      marker.active = true
+      this.activatedId = id
+    }
   }
 
   deactivatedMarker(id) {
-    this.markerArr.find(el => el.id === id).active = false
+    let marker = this.markerArr.find(el => el.id === id)
+    if (marker) {
+      marker.active = false
+    }
   }
+
   removeMarker(marker){
     this.markerArr.splice(this.markerArr.indexOf(marker), 1)
     this.removeId = marker.id
+    this.filter()
+  }
+  filter(){
+    let regexp = new RegExp(this.search, 'i');
+    this.filteredArr = this.markerArr.filter(el => regexp.test(el.type));
   }
 }

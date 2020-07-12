@@ -4,22 +4,26 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 
 import { MapComponent } from './map/map.component';
-import {JsonService} from './service/json.service';
+
 import {HttpClientModule} from '@angular/common/http';
 
 import { MapControlComponent } from './map-control/map-control.component';
 import {FormsModule} from '@angular/forms';
+import {PaginationService} from './service/pagination.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     MapComponent,
-    MapControlComponent
+    MapControlComponent,
+
+
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+
 
 
 
