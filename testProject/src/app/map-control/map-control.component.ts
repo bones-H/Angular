@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {JsonService} from '../service/json.service';
+import {MarkerService} from '../service/marker.service';
 import {Marker} from '../interface';
 
 
@@ -16,29 +16,28 @@ export class MapControlComponent {
   @Input() filteredArr: Marker[]
 
   constructor(
-    public serviceHTTP: JsonService
+    public markerService: MarkerService
   ) { }
 
 
   focusMarker($event) {
-    this.serviceHTTP.activatedMarker(+$event.target.id)
+    this.markerService.activatedMarker(+$event.target.id)
   }
 
   blurMarker() {
-    this.serviceHTTP.deactivatedMarker(this.serviceHTTP.activatedId)
-    this.serviceHTTP.activatedId = 0
+    this.markerService.deactivatedMarker(this.markerService.activatedId)
+    this.markerService.activatedId = 0
   }
   createMarker() {
-    this.serviceHTTP.newMarker = {
+    const id = ++this.markerService.lastId
+    this.markerService.newMarker = {
       coordinates: [0, 0],
-      id: this.serviceHTTP.lastId + 1,
+      id: id,
       type: this.markerType,
       title: this.markerTitle,
       active: false
     }
     this.markerTitle = this.markerType = null
   }
-
-
 
 }

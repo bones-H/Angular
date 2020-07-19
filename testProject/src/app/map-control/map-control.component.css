@@ -1,33 +1,47 @@
 .markers-panel {
   width: 320px;
 }
-.filter__box {
+.filter {
+  height: 10vh;
+}
+.filter-box {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
+  padding: 16px 0;
+  align-items: center;
+
 }
 .radio, .radio-label {
   cursor: pointer;
 }
+.filter-input {
+  width: 173px;
+  margin-left: 24px;
+}
+.inputs {
+  display: flex;
+  align-items: center;
+}
+ input {
+   height: 16px;
+   margin: 0;
+ }
 .marker-box {
   overflow: auto;
-  height: 185px;
+  height: 30vh;
   padding: 0 12px;
 }
 .marker {
-
   cursor: pointer;
   transition: color ease-in-out .4s;
-
   display: flex;
   justify-content: space-between;
   align-items: center;
-
 }
 .marker:hover {
   color: #009bff;
 }
 .marker_active {
-
   color: #009bff;
   font-weight: bold;
 }
@@ -45,29 +59,17 @@
 .btn:hover {
   transform: scale(1.2);
 }
-.pagination {
-  display: flex;
-  justify-content: center;
-  list-style: none;
-  padding: 0;
-}
-li {
-  cursor: pointer;
-  padding: 4px 8px;
-  color: #3a3e42;
-  text-decoration: none;
-  transition: all ease-in-out .4s;
 
-}
-li:hover {
-  color: #009bff;
-}
 button {
   margin-top: 20px;
+  background-color: white;
+  border-radius: 5px;
+  border-color: #009bff;
+  outline: none;
+  padding: 4px 8px;
 }
 img {
 
   height: 15px;
 }
-
 

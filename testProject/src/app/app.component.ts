@@ -1,12 +1,15 @@
-import {Component} from '@angular/core';
-import {JsonService} from './service/json.service';
+import {Component, OnDestroy} from '@angular/core';
+import {MarkerService} from './service/marker.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent{
-  constructor(public service: JsonService) {
+export class AppComponent implements OnDestroy{
+  constructor(public markerService: MarkerService) {
+  }
+  ngOnDestroy(): void {
+    this.markerService.subscription.unsubscribe()
   }
 }
