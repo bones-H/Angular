@@ -1,6 +1,5 @@
-import {Component, Input, OnChanges, SimpleChanges} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {JsonService} from '../service/json.service';
-import {PaginationService} from '../service/pagination.service';
 import {Marker} from '../interface';
 
 
@@ -9,47 +8,25 @@ import {Marker} from '../interface';
   templateUrl: './map-control.component.html',
   styleUrls: ['./map-control.component.css']
 })
-export class MapControlComponent implements  OnChanges {
+export class MapControlComponent {
 
   markerType = ''
   markerTitle = ''
-  // array of all items to be paged
-  private allItems: any[];
-
-  // pager object
-  pager: any = {};
-
-  // paged items
-  pagedItems: any[];
 
   @Input() filteredArr: Marker[]
 
   constructor(
-    public serviceHTTP: JsonService,
-    private pagerService: PaginationService
+    public serviceHTTP: JsonService
   ) { }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    this.allItems = this.filteredArr
-    this.setPage(1)
-  }
-
-  setPage(page: number) {
-    // get pager object from service
-    this.pager = this.pagerService.getPager(this.allItems.length, page);
-
-    // get current page of items
-    this.pagedItems = this.allItems.slice(this.pager.startIndex, this.pager.endIndex + 1);
-  }
 
   focusMarker($event) {
-
     this.serviceHTTP.activatedMarker(+$event.target.id)
-
   }
 
   blurMarker() {
     this.serviceHTTP.deactivatedMarker(this.serviceHTTP.activatedId)
+    this.serviceHTTP.activatedId = 0
   }
   createMarker() {
     this.serviceHTTP.newMarker = {

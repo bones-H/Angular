@@ -1,4 +1,4 @@
-import {AfterViewChecked, AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import * as L from 'leaflet';
 import {JsonService} from '../service/json.service';
 import {Marker} from '../interface';
@@ -67,7 +67,7 @@ export class MapComponent implements AfterViewInit, OnChanges{
     this.serviceHTTP.getMarkers().subscribe(data => {
       data.forEach(el => {
         const m = {...el, ...{active: false}}
-        //this.addMarkers(m)
+
         this.serviceHTTP.markerArr.push(m)
 
       })
@@ -85,6 +85,11 @@ export class MapComponent implements AfterViewInit, OnChanges{
       center: [ 59.9310584, 30.3609096 ],
       zoom: 10
     });
+    this.map.on('preclick', e => {
+
+      this.blurMarker(this.serviceHTTP.activatedId)
+
+    })
     const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
       attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'

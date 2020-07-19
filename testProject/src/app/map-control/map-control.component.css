@@ -8,18 +8,16 @@
 .radio, .radio-label {
   cursor: pointer;
 }
-.markers-box {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 10px 0;
-  width: 290px;
+.marker-box {
+  overflow: auto;
+  height: 185px;
+  padding: 0 12px;
 }
 .marker {
 
   cursor: pointer;
   transition: color ease-in-out .4s;
-  outline:none;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -29,13 +27,14 @@
   color: #009bff;
 }
 .marker_active {
-  border-bottom: 2px solid #009bff;
+
   color: #009bff;
   font-weight: bold;
 }
 .marker-text {
   max-width: 250px;
   padding: 4px 0;
+  outline:none;
 }
 .btn {
   cursor: pointer;

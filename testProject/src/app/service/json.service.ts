@@ -22,7 +22,7 @@ export class JsonService {
   }
 
   activatedMarker(id: number) {
-    let marker = this.markerArr.find(el => el.id === id)
+    let marker = this.filteredArr.find(el => el.id === id)
     if (marker) {
       marker.active = true
       this.activatedId = id
@@ -33,6 +33,7 @@ export class JsonService {
     let marker = this.markerArr.find(el => el.id === id)
     if (marker) {
       marker.active = false
+      // this.activatedId = 0
     }
   }
 

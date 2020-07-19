@@ -9,7 +9,7 @@ import {HttpClientModule} from '@angular/common/http';
 
 import { MapControlComponent } from './map-control/map-control.component';
 import {FormsModule} from '@angular/forms';
-import {PaginationService} from './service/pagination.service';
+import {PaginationService} from './service/markers.service';
 
 @NgModule({
   declarations: [
