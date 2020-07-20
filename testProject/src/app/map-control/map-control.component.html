@@ -1,61 +1,86 @@
 <div class="markers-panel">
   <div class="filter">
-
     <div class="filter-box">
       <span>Фильтр по типу:</span>
       <div class="inputs">
-        <input class="radio" type="radio" id="searchEvent" name="search" value="Event" (click)="this.markerService.filterMarkers($event)">
+        <input
+          class="radio"
+          type="radio"
+          id="searchEvent"
+          name="search"
+          value="Event"
+          (click)="this.markerService.filterMarkers($event.target.value)"
+        />
         <label class="radio-label" for="searchEvent">Event</label>
       </div>
       <div class="inputs">
-        <input class="radio" type="radio" id="searchPlace" name="search" value="Place" (click)="this.markerService.filterMarkers($event)">
+        <input
+          class="radio"
+          type="radio"
+          id="searchPlace"
+          name="search"
+          value="Place"
+          (click)="this.markerService.filterMarkers($event.target.value)"
+        />
         <label class="radio-label" for="searchPlace">Place</label>
       </div>
       <div class="inputs">
-        <input class="radio" type="radio" id="searchAll" name="search" value="" checked (click)="this.markerService.filterMarkers($event)">
+        <input
+          class="radio"
+          type="radio"
+          id="searchAll"
+          name="search"
+          value=""
+          checked
+          (click)="this.markerService.filterMarkers($event.target.value)"
+        />
         <label class="radio-label" for="searchAll">All</label>
       </div>
-
-
     </div>
 
     <span>Поиск по имени:</span>
-    <input class="filter-input" type="text" placeholder="Имя маркера" [(ngModel)]="this.markerService.searchStr" (keyup)="this.markerService.filterMarkers()">
-
-
+    <input
+      class="filter-input"
+      type="text"
+      placeholder="Имя маркера"
+      [(ngModel)]="this.markerService.searchTitle"
+      (keyup)="this.markerService.filterMarkers()"
+    />
   </div>
 
   <h4>Маркеры на карте</h4>
   <div class="marker-box">
     <div class="marker" *ngFor="let marker of markerService.filteredArr">
-      <span  tabindex="0" class="marker-text"
-             [ngClass]="{marker_active: marker.active}"
-             [id]="marker.id"
-             (focusin)="focusMarker($event)"
-             (focusout)="blurMarker()"
+      <span
+        tabindex="0"
+        class="marker-text"
+        [ngClass]="{ marker_active: marker.active }"
+        [id]="marker.id"
+        (focusin)="focusMarker($event)"
+        (focusout)="blurMarker()"
       >
-        {{marker.id}}. {{marker.type}} - {{marker.title}}
+        {{ marker.id }}. {{ marker.type }} - {{ marker.title }}
       </span>
-      <div class="btn" (click)="this.markerService.removeMarker(marker)"><img src="https://svgsilh.com/svg/1152114-ff5722.svg" alt="delete"></div>
+      <div class="btn" (click)="this.markerService.removeMarker(marker)">
+        <img src="https://svgsilh.com/svg/1152114-ff5722.svg" alt="delete" />
+      </div>
     </div>
-
   </div>
   <div class="create-markers">
     <h4>Создать новый маркер</h4>
     <div class="type">
       <p>Выберите тип маркера</p>
       <select name="marker-type" [(ngModel)]="markerType">
-        <option  value="Event">Event</option>
+        <option value="Event">Event</option>
         <option value="Place">Place</option>
       </select>
     </div>
     <div class="title">
       <p>Введите название маркера</p>
-      <input type="text" [(ngModel)]="markerTitle">
+      <input type="text" [(ngModel)]="markerTitle" />
     </div>
-    <button [disabled]="!(markerType&&markerTitle)" (click)="createMarker()">Выбрать место для маркера на карте</button>
+    <button [disabled]="!(markerType && markerTitle)" (click)="createMarker()">
+      Выбрать место для маркера на карте
+    </button>
   </div>
 </div>
-
-
-

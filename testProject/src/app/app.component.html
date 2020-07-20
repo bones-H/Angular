@@ -1,11 +1,21 @@
 <aside>
   <div class="logo">
-    <img src="https://www.flaticon.com/premium-icon/icons/svg/3086/3086544.svg" alt="logo">
+    <img
+      src="https://www.flaticon.com/premium-icon/icons/svg/3086/3086544.svg"
+      alt="logo"
+    />
     <div class="logo-text">
       <p>Leaflet Map Application</p>
     </div>
   </div>
-  <app-map-control [filteredArr]="this.markerService.filteredArr"></app-map-control>
+  <app-map-control
+    [filteredArr]="this.markerService.filteredArr"
+  ></app-map-control>
 </aside>
 
-<app-map [activatedId]="this.markerService.activatedId" [removeId]="this.markerService.removeId" [newMarker]="this.markerService.newMarker" [filteredArr]="this.markerService.filteredArr"></app-map>
+<app-map
+  [activatedId]="this.markerService.activatedId"
+  [removeId]="this.markerService.removeId"
+  [newMarker]="this.markerService.newMarker"
+  [filteredArr]="this.markerService.filteredArr"
+></app-map>
