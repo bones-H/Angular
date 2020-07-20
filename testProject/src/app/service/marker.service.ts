@@ -15,6 +15,7 @@ export class MarkerService {
   searchTitle = '';
   filterType = '';
   subscription: Subscription;
+  error = '';
 
   iconPlace = L.icon({
     iconUrl: 'https://svgsilh.com/svg/1093167-ff5722.svg',
@@ -43,7 +44,8 @@ export class MarkerService {
           this.lastId = el.id;
         });
         this.filterMarkers();
-      });
+        this.subscription.unsubscribe();
+      }, error => this.error = error.message);
   }
   updateMarkers(el: Marker) {
     let icon;

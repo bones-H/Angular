@@ -47,10 +47,12 @@
       (keyup)="this.markerService.filterMarkers()"
     />
   </div>
-
   <h4>Маркеры на карте</h4>
   <div class="marker-box">
-    <div class="marker" *ngFor="let marker of markerService.filteredArr">
+    <p *ngIf="this.markerService.error">
+      Извините сервер не доступен: "{{ this.markerService.error }}"
+    </p>
+    <div class="marker" *ngFor="let marker of this.markerService.filteredArr">
       <span
         tabindex="0"
         class="marker-text"

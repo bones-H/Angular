@@ -6,9 +6,6 @@ import { MarkerService } from './service/marker.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent implements OnDestroy {
+export class AppComponent {
   constructor(public markerService: MarkerService) {}
-  ngOnDestroy(): void {
-    this.markerService.subscription.unsubscribe();
-  }
 }
