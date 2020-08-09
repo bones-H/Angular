@@ -1,5 +1,5 @@
-import { Component, OnDestroy } from '@angular/core';
-import { MarkerService } from './service/marker.service';
+import {Component} from '@angular/core';
+
 
 @Component({
   selector: 'app-root',
@@ -7,5 +7,6 @@ import { MarkerService } from './service/marker.service';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  constructor(public markerService: MarkerService) {}
+  constructor() {
+  }
 }

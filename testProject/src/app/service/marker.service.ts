@@ -1,36 +1,31 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Marker } from '../interface';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Marker} from '../interface';
 import * as L from 'leaflet';
-import { Subscription } from 'rxjs';
+import {Subscription} from 'rxjs';
+import {MapService} from './map.service';
 
-@Injectable({ providedIn: 'root' })
+@Injectable({providedIn: 'root'})
 export class MarkerService {
+
+  markers = {};
   markerArr: Marker[] = [];
   filteredArr: Marker[] = [];
   activatedId = null;
-  removeId = null;
+
   lastId = null;
-  newMarker: Marker;
   searchTitle = '';
   filterType = '';
   subscription: Subscription;
   error = '';
 
-  iconPlace = L.icon({
-    iconUrl: 'https://svgsilh.com/svg/1093167-ff5722.svg',
-    iconSize: [50, 50],
-  });
-  iconEvent = L.icon({
-    iconUrl: 'https://svgsilh.com/svg/1915456-ff5722.svg',
-    iconSize: [50, 50],
-  });
-  iconDefault = L.icon({
-    iconUrl: 'https://svgsilh.com/svg/1566741.svg',
-    iconSize: [50, 50],
-  });
+  constructor(private http: HttpClient,
+              private mapService: MapService) {
+  }
 
-  constructor(private http: HttpClient) {}
+  getMap() {
+    return this.mapService.initMap();
+  }
 
   getMarkers() {
     this.subscription = this.http
@@ -39,7 +34,7 @@ export class MarkerService {
       )
       .subscribe((data) => {
         data.forEach((el) => {
-          const marker = { ...el, ...{ active: false } };
+          const marker = {...el, ...{active: false}};
           this.markerArr.push(marker);
           this.lastId = el.id;
         });
@@ -47,50 +42,61 @@ export class MarkerService {
         this.subscription.unsubscribe();
       }, error => this.error = error.message);
   }
-  updateMarkers(el: Marker) {
-    let icon;
-    switch (el.type) {
-      case 'Place':
-        icon = this.iconPlace;
-        break;
-      case 'Event':
-        icon = this.iconEvent;
-        break;
-      default:
-        icon = this.iconDefault;
-    }
-    const marker = {
-      ...el,
-      ...{
-        options: {
-          title: el.title,
-          icon: icon,
-        },
-      },
-    };
-    return marker;
+
+  placeMarker(newMarker) {
+    this.mapService.map.on('click', (e) => {
+      newMarker.coordinates = [e.latlng.lat, e.latlng.lng];
+      this.addMarkers(newMarker);
+      this.markerArr.push(newMarker);
+      this.filterMarkers();
+      this.mapService.map.off('click');
+    });
   }
 
-  activateMarker(id: number) {
-    const marker = this.filteredArr.find((el) => el.id === id);
-    if (marker) {
-      marker.active = true;
-      this.activatedId = id;
+  addMarkers(el: Marker) {
+    let marker = this.mapService.modifyMarkers(el);
+    this.markers[marker.id] = L.marker(
+      marker.coordinates,
+      marker.options
+    ).addTo(this.mapService.map);
+    this.markers[marker.id].on('click', (e) => {
+      this.focusMarker(+marker.id);
+    });
+  }
+
+  removeAllMarkers() {
+    for (let key in this.markers) {
+      this.markers[key].removeFrom(this.mapService.map);
+      delete this.markers[key];
     }
   }
 
-  deactivateMarker(id) {
-    const marker = this.markerArr.find((el) => el.id === id);
-    if (marker) {
+  focusMarker(id: number) {
+    if (id) {
+      this.blurMarker(this.activatedId);
+      const marker = this.filteredArr.find((el) => el.id === id);
+      if (marker) {
+        marker.active = true;
+        this.activatedId = id;
+      }
+      this.markers[id]._icon.classList.add('marker-active');
+      this.mapService.map.panTo(this.markers[id].getLatLng());
+    }
+  }
+
+  blurMarker(id: number) {
+    if (id) {
+      const marker = this.markerArr.find((el) => el.id === id);
       marker.active = false;
+      this.markers[id]?._icon.classList.remove('marker-active');
     }
   }
 
   removeMarker(marker) {
     this.markerArr.splice(this.markerArr.indexOf(marker), 1);
-    this.removeId = marker.id;
     this.filterMarkers();
   }
+
   filterMarkers(str?: string) {
     if (str != undefined) {
       this.filterType = str;
@@ -103,5 +109,8 @@ export class MarkerService {
         regexpTitle.test(el.title)
       );
     }
+    this.removeAllMarkers();
+    this.filteredArr.forEach((el) => this.addMarkers(el));
+
   }
 }

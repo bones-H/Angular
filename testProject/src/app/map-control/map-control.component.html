@@ -4,7 +4,6 @@
       <span>Фильтр по типу:</span>
       <div class="inputs">
         <input
-          class="radio"
           type="radio"
           id="searchEvent"
           name="search"
@@ -15,7 +14,6 @@
       </div>
       <div class="inputs">
         <input
-          class="radio"
           type="radio"
           id="searchPlace"
           name="search"
@@ -26,7 +24,6 @@
       </div>
       <div class="inputs">
         <input
-          class="radio"
           type="radio"
           id="searchAll"
           name="search"
@@ -58,8 +55,8 @@
         class="marker-text"
         [ngClass]="{ marker_active: marker.active }"
         [id]="marker.id"
-        (focusin)="focusMarker($event)"
-        (focusout)="blurMarker()"
+        (focusin)=" this.markerService.focusMarker(+$event.target.id)"
+        (focusout)="this.markerService.blurMarker(this.markerService.activatedId)"
       >
         {{ marker.id }}. {{ marker.type }} - {{ marker.title }}
       </span>
@@ -72,16 +69,16 @@
     <h4>Создать новый маркер</h4>
     <div class="type">
       <p>Выберите тип маркера</p>
-      <select name="marker-type" [(ngModel)]="markerType">
+      <select name="marker-type" [(ngModel)]="newMarkerType">
         <option value="Event">Event</option>
         <option value="Place">Place</option>
       </select>
     </div>
     <div class="title">
       <p>Введите название маркера</p>
-      <input type="text" [(ngModel)]="markerTitle" />
+      <input type="text" [(ngModel)]="newMarkerTitle" />
     </div>
-    <button [disabled]="!(markerType && markerTitle)" (click)="createMarker()">
+    <button [disabled]="!(newMarkerType && newMarkerTitle)" (click)="createMarker()">
       Выбрать место для маркера на карте
     </button>
   </div>
