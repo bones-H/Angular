@@ -7,15 +7,16 @@ import {MapService} from './map.service';
 
 @Injectable({providedIn: 'root'})
 export class MarkerService {
-
   markers = {};
   markerArr: Marker[] = [];
   filteredArr: Marker[] = [];
-  activatedId = null;
 
+  activatedId = null;
   lastId = null;
+
   searchTitle = '';
   filterType = '';
+
   subscription: Subscription;
   error = '';
 
@@ -44,16 +45,18 @@ export class MarkerService {
   }
 
   placeMarker(newMarker) {
+    document.getElementById('map').classList.add('cursor');
     this.mapService.map.on('click', (e) => {
       newMarker.coordinates = [e.latlng.lat, e.latlng.lng];
-      this.addMarkers(newMarker);
+      this.addMarkerOnMap(newMarker);
       this.markerArr.push(newMarker);
       this.filterMarkers();
       this.mapService.map.off('click');
+      document.getElementById('map').classList.remove('cursor');
     });
   }
 
-  addMarkers(el: Marker) {
+  addMarkerOnMap(el: Marker) {
     let marker = this.mapService.modifyMarkers(el);
     this.markers[marker.id] = L.marker(
       marker.coordinates,
@@ -62,13 +65,6 @@ export class MarkerService {
     this.markers[marker.id].on('click', (e) => {
       this.focusMarker(+marker.id);
     });
-  }
-
-  removeAllMarkers() {
-    for (let key in this.markers) {
-      this.markers[key].removeFrom(this.mapService.map);
-      delete this.markers[key];
-    }
   }
 
   focusMarker(id: number) {
@@ -89,18 +85,17 @@ export class MarkerService {
       const marker = this.markerArr.find((el) => el.id === id);
       marker.active = false;
       this.markers[id]?._icon.classList.remove('marker-active');
+      this.activatedId = 0;
     }
   }
 
   removeMarker(marker) {
+    this.blurMarker(this.activatedId);
     this.markerArr.splice(this.markerArr.indexOf(marker), 1);
     this.filterMarkers();
   }
 
-  filterMarkers(str?: string) {
-    if (str != undefined) {
-      this.filterType = str;
-    }
+  filterMarkers() {
     const regexpType = new RegExp(this.filterType, 'i');
     this.filteredArr = this.markerArr.filter((el) => regexpType.test(el.type));
     if (this.searchTitle) {
@@ -109,8 +104,16 @@ export class MarkerService {
         regexpTitle.test(el.title)
       );
     }
-    this.removeAllMarkers();
-    this.filteredArr.forEach((el) => this.addMarkers(el));
-
+    for (let key in this.markers) {
+      if (!this.filteredArr.find(marker => marker.id === +key)) {
+        this.markers[key].removeFrom(this.mapService.map);
+        delete this.markers[key];
+      }
+    }
+    this.filteredArr.forEach((el) => {
+      if (!this.markers[el.id]) {
+        this.addMarkerOnMap(el);
+      }
+    });
   }
 }

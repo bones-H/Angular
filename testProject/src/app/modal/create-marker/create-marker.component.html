@@ -1,0 +1,23 @@
+<div class="shadow"></div>
+<div class="create-markers">
+  <h4>Создать новый маркер</h4>
+  <div class="type">
+    <p>Выберите тип маркера:</p>
+    <select name="marker-type" [(ngModel)]="newMarkerType">
+      <option value="Event">Event</option>
+      <option value="Place">Place</option>
+    </select>
+  </div>
+  <div class="title">
+    <p>Введите название маркера:</p>
+    <input type="text" [(ngModel)]="newMarkerTitle" />
+  </div>
+
+  <div class="buttons-box">
+    <button [disabled]="!(newMarkerType && newMarkerTitle)" (click)="createMarker()">
+      Разместить маркер
+    </button>
+    <button (click)="close.emit()">Отменить</button>
+  </div>
+
+</div>

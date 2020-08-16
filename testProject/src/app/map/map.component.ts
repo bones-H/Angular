@@ -1,13 +1,5 @@
-import {
-  AfterViewInit,
-  Component,
-  Input,
-  OnChanges,
-  SimpleChanges,
-} from '@angular/core';
-import * as L from 'leaflet';
+import {AfterViewInit, Component} from '@angular/core';
 import {MarkerService} from '../service/marker.service';
-import {Marker} from '../interface';
 
 @Component({
   selector: 'app-map',
@@ -24,7 +16,7 @@ export class MapComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     this.map = this.markerService.getMap();
     this.markerService.getMarkers();
-    this.map.on('preclick', (e) => {
+    this.map.on('preclick', () => {
       this.markerService.blurMarker(this.markerService.activatedId);
     });
   }

@@ -1,3 +1,4 @@
+<ng-template appRef></ng-template>
 <div class="markers-panel">
   <div class="filter">
     <div class="filter-box">
@@ -8,7 +9,8 @@
           id="searchEvent"
           name="search"
           value="Event"
-          (click)="this.markerService.filterMarkers($event.target.value)"
+          [(ngModel)]="this.markerService.filterType"
+          (change)="this.markerService.filterMarkers()"
         />
         <label class="radio-label" for="searchEvent">Event</label>
       </div>
@@ -18,7 +20,8 @@
           id="searchPlace"
           name="search"
           value="Place"
-          (click)="this.markerService.filterMarkers($event.target.value)"
+          [(ngModel)]="this.markerService.filterType"
+          (change)="this.markerService.filterMarkers()"
         />
         <label class="radio-label" for="searchPlace">Place</label>
       </div>
@@ -29,7 +32,8 @@
           name="search"
           value=""
           checked
-          (click)="this.markerService.filterMarkers($event.target.value)"
+          [(ngModel)]="this.markerService.filterType"
+          (change)="this.markerService.filterMarkers()"
         />
         <label class="radio-label" for="searchAll">All</label>
       </div>
@@ -60,26 +64,9 @@
       >
         {{ marker.id }}. {{ marker.type }} - {{ marker.title }}
       </span>
-      <div class="btn" (click)="this.markerService.removeMarker(marker)">
+      <div class="btn" (click)="this.showModalCreate(marker)">
         <img src="https://svgsilh.com/svg/1152114-ff5722.svg" alt="delete" />
       </div>
     </div>
-  </div>
-  <div class="create-markers">
-    <h4>Создать новый маркер</h4>
-    <div class="type">
-      <p>Выберите тип маркера</p>
-      <select name="marker-type" [(ngModel)]="newMarkerType">
-        <option value="Event">Event</option>
-        <option value="Place">Place</option>
-      </select>
-    </div>
-    <div class="title">
-      <p>Введите название маркера</p>
-      <input type="text" [(ngModel)]="newMarkerTitle" />
-    </div>
-    <button [disabled]="!(newMarkerType && newMarkerTitle)" (click)="createMarker()">
-      Выбрать место для маркера на карте
-    </button>
   </div>
 </div>

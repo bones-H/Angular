@@ -1,0 +1,9 @@
+<div class="shadow"></div>
+<div class="delete-markers">
+  <h4>Вы точно хотите удалить маркер?</h4>
+  <p> {{marker.id}}. {{marker.type}} - {{marker.title}}</p>
+  <div class="buttons-box">
+    <button (click)="deleteMarker()">Да</button>
+    <button (click)="close.emit()">Нет</button>
+  </div>
+</div>
