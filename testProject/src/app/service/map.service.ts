@@ -24,13 +24,11 @@ export class MapService {
   constructor() {
   }
 
-
   initMap(): void {
     this.map = L.map('map', {
       center: [59.9310584, 30.3609096],
       zoom: 10,
     });
-
     const tiles = L.tileLayer(
       'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
       {

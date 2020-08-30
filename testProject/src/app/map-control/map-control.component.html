@@ -53,20 +53,40 @@
     <p *ngIf="this.markerService.error">
       Извините сервер не доступен: "{{ this.markerService.error }}"
     </p>
-    <div class="marker" *ngFor="let marker of this.markerService.filteredArr">
+    <div class="marker" *ngFor="let marker of this.paginationService.paginationObj?.pageContent">
       <span
         tabindex="0"
         class="marker-text"
-        [ngClass]="{ marker_active: marker.active }"
+        [ngClass]="{ 'marker_active': marker.active }"
         [id]="marker.id"
         (focusin)=" this.markerService.focusMarker(+$event.target.id)"
         (focusout)="this.markerService.blurMarker(this.markerService.activatedId)"
       >
         {{ marker.id }}. {{ marker.type }} - {{ marker.title }}
       </span>
-      <div class="btn" (click)="this.showModalCreate(marker)">
+      <div class="btn" (click)="this.showModalDelete(marker)">
         <img src="https://svgsilh.com/svg/1152114-ff5722.svg" alt="delete" />
       </div>
     </div>
+  </div>
+  <div class="pageNumbers">
+    <button
+      [disabled]="(this.paginationService.paginationObj.currentPage === 1)"
+      (click)="setPage(this.paginationService.paginationObj.currentPage - 1)"
+    ><</button>
+    <ul>
+      <li *ngFor="let page of this.paginationService.paginationObj.pageNumbers">
+        <a
+          (click)="setPage(page)"
+          [ngClass]="{'current-page': (this.paginationService.paginationObj.currentPage === page) }"
+        >
+          {{page}}
+        </a>
+      </li>
+    </ul>
+    <button
+      [disabled]="(this.paginationService.paginationObj.currentPage === this.paginationService.paginationObj.pageNumbers?.length)"
+      (click)="setPage(this.paginationService.paginationObj.currentPage + 1)"
+    >></button>
   </div>
 </div>

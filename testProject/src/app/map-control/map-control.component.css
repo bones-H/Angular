@@ -28,7 +28,7 @@ input {
 }
 .marker-box {
   overflow: auto;
-  height: 30vh;
+  height: 22vh;
   padding: 0 12px;
 }
 .marker {
@@ -61,14 +61,47 @@ input {
 }
 
 button {
-  margin-top: 20px;
+  height: 25px;
   background-color: white;
   border-radius: 5px;
   border-color: #009bff;
   outline: none;
   padding: 4px 8px;
+  cursor: pointer;
 }
+
 img {
   height: 15px;
 }
+.pageNumbers {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0;
+  font-size: 1.2rem;
+}
+ul {
+  padding: 0;
+  margin: 0;
 
+  display: flex;
+  justify-content: center;
+
+}
+li {
+  list-style: none;
+  cursor: pointer;
+  margin: 0 10px;
+  display: inline-block;
+
+}
+a {
+  transition: color ease-in-out 0.4s;
+}
+a:hover {
+  color: #009bff;
+}
+.current-page {
+  color: #009bff;
+  font-weight: bold;
+}

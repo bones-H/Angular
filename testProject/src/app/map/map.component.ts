@@ -1,5 +1,6 @@
 import {AfterViewInit, Component} from '@angular/core';
 import {MarkerService} from '../service/marker.service';
+import {MapService} from '../service/map.service';
 
 @Component({
   selector: 'app-map',
@@ -8,13 +9,16 @@ import {MarkerService} from '../service/marker.service';
 })
 export class MapComponent implements AfterViewInit {
   private map;
-  private markers = {};
 
-  constructor(private markerService: MarkerService) {
+
+  constructor(
+    private markerService: MarkerService,
+    private mapService: MapService
+  ) {
   }
 
   ngAfterViewInit(): void {
-    this.map = this.markerService.getMap();
+    this.map = this.mapService.initMap();
     this.markerService.getMarkers();
     this.map.on('preclick', () => {
       this.markerService.blurMarker(this.markerService.activatedId);

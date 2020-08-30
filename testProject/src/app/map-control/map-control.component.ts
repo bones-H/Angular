@@ -1,9 +1,9 @@
-import {Component, ComponentFactoryResolver, Input, ViewChild} from '@angular/core';
+import {Component, ComponentFactoryResolver, ViewChild} from '@angular/core';
 import {MarkerService} from '../service/marker.service';
-import {Marker} from '../interface';
-import {CreateMarkerComponent} from '../modal/create-marker/create-marker.component';
 import {RefDirective} from '../ref.directive';
 import {DeleteMarkerComponent} from '../modal/delete-marker/delete-marker.component';
+import {PaginationService} from '../service/pagination.service';
+
 
 @Component({
   selector: 'app-map-control',
@@ -16,10 +16,11 @@ export class MapControlComponent {
 
   constructor(
     public markerService: MarkerService,
+    public paginationService: PaginationService,
     private resolver: ComponentFactoryResolver) {
   }
 
-  showModalCreate(marker) {
+  showModalDelete(marker) {
     const modalFactory = this.resolver.resolveComponentFactory(DeleteMarkerComponent);
     const component = this.refDir.containerRef.createComponent(modalFactory);
     component.instance.marker = marker;
@@ -28,4 +29,7 @@ export class MapControlComponent {
     });
   }
 
+  setPage(page: number) {
+    this.paginationService.setPage(page);
+  }
 }

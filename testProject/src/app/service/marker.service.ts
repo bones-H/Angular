@@ -4,6 +4,7 @@ import {Marker} from '../interface';
 import * as L from 'leaflet';
 import {Subscription} from 'rxjs';
 import {MapService} from './map.service';
+import {PaginationService} from './pagination.service';
 
 @Injectable({providedIn: 'root'})
 export class MarkerService {
@@ -21,11 +22,8 @@ export class MarkerService {
   error = '';
 
   constructor(private http: HttpClient,
-              private mapService: MapService) {
-  }
-
-  getMap() {
-    return this.mapService.initMap();
+              public paginationService: PaginationService,
+              public mapService: MapService) {
   }
 
   getMarkers() {
@@ -40,6 +38,7 @@ export class MarkerService {
           this.lastId = el.id;
         });
         this.filterMarkers();
+
         this.subscription.unsubscribe();
       }, error => this.error = error.message);
   }
@@ -77,6 +76,8 @@ export class MarkerService {
       }
       this.markers[id]._icon.classList.add('marker-active');
       this.mapService.map.panTo(this.markers[id].getLatLng());
+      const index = this.filteredArr.indexOf(marker);
+      this.paginationService.findPage(index);
     }
   }
 
@@ -115,5 +116,6 @@ export class MarkerService {
         this.addMarkerOnMap(el);
       }
     });
+    this.paginationService.getPagination(this.filteredArr);
   }
 }
